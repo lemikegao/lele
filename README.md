@@ -72,5 +72,5 @@ an awesome tutorial: (http://www.codeandweb.com/blog/2011/05/11/xcode4-integrati
 
 Contact
 -------
-Feel free to drop us a [note](mailto:recipient@example.com) or tweet 
+Feel free to drop us a [note](mailto:chinandcheeks@gmail.com) or tweet 
 us [@littlemonocle](http://www.twitter.com/littlemonocle)!
