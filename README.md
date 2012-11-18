@@ -7,7 +7,7 @@ around the world and make mobile games that make us (and hopefully you) smile :)
 We use this template for our Cocos2D-based iPhone games! The file structure was 
 heavily inspired by [Learning Cocos2D](http://amzn.com/0321735625) by 
 [Rod Strougo](http://twitter.com/rodstrougo) and 
-[Ray Wenderlich[(http://www.raywenderlich.com/).
+[Ray Wenderlich](http://www.raywenderlich.com/).
 
 File Structure
 --------------
@@ -68,8 +68,7 @@ Folder is empty but we often integrate a shell script with the XCode build
 process to update our texture atlases during compile time. This ensures the 
 texture atlases are up to date with any new or removed assets and it 
 saves memory by not checking in your texture atlases to your repo. Here's 
-an awesome tutorial: (http://www.codeandweb.com/blog/2011/05/11/xcode4-integration-
-tutorial-of-texturepacker-for-cocos2d-and-sparrow-framework)
+an awesome tutorial: (http://www.codeandweb.com/blog/2011/05/11/xcode4-integration-tutorial-of-texturepacker-for-cocos2d-and-sparrow-framework)
 
 Contact
 -------
