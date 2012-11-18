@@ -1,7 +1,7 @@
 README
 ======
 
-Hi. We are [Chin and Cheeks](http://twitter.com/littlemonocle)! We travel 
+Hi. We are [Chin and Cheeks](http://twitter.com/chinandcheeks)! We travel 
 around the world and make mobile games that make us (and hopefully you) smile :)
 
 We use this template for our Cocos2D-based iPhone games! The file structure was 
@@ -73,4 +73,4 @@ an awesome tutorial: (http://www.codeandweb.com/blog/2011/05/11/xcode4-integrati
 Contact
 -------
 Feel free to drop us a [note](mailto:chinandcheeks@gmail.com) or tweet 
-us [@littlemonocle](http://www.twitter.com/littlemonocle)!
+us [@chinandcheeks](http://www.twitter.com/chinandcheeks)!
