@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#warning - replace with app API key
+#warning - replace with app API key; also look to update from v4.0.6
     // integrate flurry for analytics
 //    [Flurry startSession:@"YOUR_API_KEY"];
     
