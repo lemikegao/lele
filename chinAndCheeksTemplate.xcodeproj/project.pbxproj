@@ -21,6 +21,9 @@
 		C4514FDC16588CB90073A119 /* mainmenu_art.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4514FD816588CB90073A119 /* mainmenu_art.plist */; };
 		C4514FDD16588CB90073A119 /* mainmenu_art.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = C4514FD916588CB90073A119 /* mainmenu_art.pvr.ccz */; };
 		C4514FE0165891EE0073A119 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C4514FDF165891EE0073A119 /* GameObject.m */; };
+		C46D83F61667001000C6529A /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D83F51667001000C6529A /* libFlurry.a */; };
+		C46D83F91667007800C6529A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D83F81667007800C6529A /* SystemConfiguration.framework */; };
+		C46D83FB1667010500C6529A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C46D83FA1667010500C6529A /* Default-568h@2x.png */; };
 		DC0864B815BD8CE60044A820 /* CCNode+Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0864B515BD8CE60044A820 /* CCNode+Debug.h */; };
 		DC0864B915BD8CE60044A820 /* CCNode+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0864B615BD8CE60044A820 /* CCNode+Debug.m */; };
 		DC0864BA15BD8CE60044A820 /* ccCArray.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0864B715BD8CE60044A820 /* ccCArray.m */; };
@@ -294,6 +297,10 @@
 		C4514FD916588CB90073A119 /* mainmenu_art.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = mainmenu_art.pvr.ccz; sourceTree = "<group>"; };
 		C4514FDE165891EE0073A119 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		C4514FDF165891EE0073A119 /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
+		C46D83F41667001000C6529A /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		C46D83F51667001000C6529A /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		C46D83F81667007800C6529A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C46D83FA1667010500C6529A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
 		DC0864B515BD8CE60044A820 /* CCNode+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+Debug.h"; sourceTree = "<group>"; };
 		DC0864B615BD8CE60044A820 /* CCNode+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+Debug.m"; sourceTree = "<group>"; };
 		DC0864B715BD8CE60044A820 /* ccCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ccCArray.m; sourceTree = "<group>"; };
@@ -559,6 +566,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46D83F91667007800C6529A /* SystemConfiguration.framework in Frameworks */,
 				DC0C4B92154AB57C00B4B727 /* libcocos2d-library.a in Frameworks */,
 				DC0C49F6154AB4DD00B4B727 /* QuartzCore.framework in Frameworks */,
 				DC0C49F8154AB4DD00B4B727 /* OpenGLES.framework in Frameworks */,
@@ -569,6 +577,7 @@
 				DC0C4A02154AB4DD00B4B727 /* Foundation.framework in Frameworks */,
 				DC0C4A04154AB4DD00B4B727 /* CoreGraphics.framework in Frameworks */,
 				DC0C4A06154AB4DD00B4B727 /* GameKit.framework in Frameworks */,
+				C46D83F61667001000C6529A /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +604,15 @@
 			path = mainmenu_art;
 			sourceTree = "<group>";
 		};
+		C46D83F31667001000C6529A /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				C46D83F41667001000C6529A /* Flurry.h */,
+				C46D83F51667001000C6529A /* libFlurry.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		C4993D1F16576C28008187A8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,16 +624,8 @@
 		C4993D2016576C28008187A8 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
-				C4993D2116576C28008187A8 /* untitled folder */,
 			);
 			path = Scripts;
-			sourceTree = "<group>";
-		};
-		C4993D2116576C28008187A8 /* untitled folder */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "untitled folder";
 			sourceTree = "<group>";
 		};
 		C4993D2216576C28008187A8 /* SpriteSheets */ = {
@@ -738,6 +748,7 @@
 		DC0C49F4154AB4DD00B4B727 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C46D83F81667007800C6529A /* SystemConfiguration.framework */,
 				DC0C49F5154AB4DD00B4B727 /* QuartzCore.framework */,
 				DC0C49F7154AB4DD00B4B727 /* OpenGLES.framework */,
 				DC0C49F9154AB4DD00B4B727 /* OpenAL.framework */,
@@ -773,6 +784,7 @@
 				C4993D2C16576CDA008187A8 /* Sounds */,
 				C4993D2B16576CD1008187A8 /* Particles */,
 				DC0C4A09154AB4DD00B4B727 /* Default.png */,
+				C46D83FA1667010500C6529A /* Default-568h@2x.png */,
 				DC0C4A0B154AB4DD00B4B727 /* fps_images.png */,
 				DC0C4A0D154AB4DD00B4B727 /* fps_images-hd.png */,
 				DC0C4A0F154AB4DD00B4B727 /* fps_images-ipadhd.png */,
@@ -800,6 +812,7 @@
 		DC0C4B93154AB59800B4B727 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C46D83F31667001000C6529A /* Flurry */,
 				DC0C4B94154AB59800B4B727 /* cocos2d */,
 				DC0C4C54154AB59800B4B727 /* CocosDenshion */,
 				DC0C4C5E154AB59800B4B727 /* kazmath */,
@@ -1356,6 +1369,7 @@
 				C4514FDB16588CB90073A119 /* mainmenu_art-hd.pvr.ccz in Resources */,
 				C4514FDC16588CB90073A119 /* mainmenu_art.plist in Resources */,
 				C4514FDD16588CB90073A119 /* mainmenu_art.pvr.ccz in Resources */,
+				C46D83FB1667010500C6529A /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1536,6 +1550,10 @@
 				GCC_PREFIX_HEADER = chinAndCheeksTemplate/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"chinAndCheeksTemplate/libs/kazmath/include\"";
 				INFOPLIST_FILE = chinAndCheeksTemplate/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/chinAndCheeksTemplate/libs/Flurry\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -1555,6 +1573,10 @@
 				GCC_PREFIX_HEADER = chinAndCheeksTemplate/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"chinAndCheeksTemplate/libs/kazmath/include\"";
 				INFOPLIST_FILE = chinAndCheeksTemplate/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/chinAndCheeksTemplate/libs/Flurry\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",

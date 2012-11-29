@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "GameManager.h"
+#import "Flurry.h"
 
 @implementation AppController
 
@@ -15,6 +16,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#warning - replace with app API key
+    // integrate flurry for analytics
+//    [Flurry startSession:@"YOUR_API_KEY"];
+    
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
