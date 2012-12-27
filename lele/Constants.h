@@ -11,7 +11,8 @@
 
 typedef enum {
     kSceneTypeNone = 0,
-    kSceneTypeMainMenu
+    kSceneTypeMainMenu,
+    kSceneTypeGame
 } SceneTypes;
 
 typedef enum {

@@ -33,8 +33,7 @@
 }
 
 -(void)playGameScene {
-    // placeholder
-    CCLOG(@"play game button was pressed");
+    [[GameManager sharedGameManager] runSceneWithID:kSceneTypeGame];
 }
 
 -(void)showSettings {

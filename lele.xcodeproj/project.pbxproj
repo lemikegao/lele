@@ -24,6 +24,8 @@
 		C46D83F61667001000C6529A /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D83F51667001000C6529A /* libFlurry.a */; };
 		C46D83F91667007800C6529A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D83F81667007800C6529A /* SystemConfiguration.framework */; };
 		C4840F551667435300B39448 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4840F541667435300B39448 /* Default-568h@2x.png */; };
+		C4E43053168C956700B80D00 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E43052168C956700B80D00 /* GameScene.m */; };
+		C4E43056168C958000B80D00 /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E43055168C958000B80D00 /* GameLayer.m */; };
 		DC0864B815BD8CE60044A820 /* CCNode+Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0864B515BD8CE60044A820 /* CCNode+Debug.h */; };
 		DC0864B915BD8CE60044A820 /* CCNode+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0864B615BD8CE60044A820 /* CCNode+Debug.m */; };
 		DC0864BA15BD8CE60044A820 /* ccCArray.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0864B715BD8CE60044A820 /* ccCArray.m */; };
@@ -301,6 +303,10 @@
 		C46D83F51667001000C6529A /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		C46D83F81667007800C6529A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C4840F541667435300B39448 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C4E43051168C956700B80D00 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		C4E43052168C956700B80D00 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		C4E43054168C958000B80D00 /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
+		C4E43055168C958000B80D00 /* GameLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLayer.m; sourceTree = "<group>"; };
 		DC0864B515BD8CE60044A820 /* CCNode+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+Debug.h"; sourceTree = "<group>"; };
 		DC0864B615BD8CE60044A820 /* CCNode+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+Debug.m"; sourceTree = "<group>"; };
 		DC0864B715BD8CE60044A820 /* ccCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ccCArray.m; sourceTree = "<group>"; };
@@ -654,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				C4993D2516576C70008187A8 /* MainMenu */,
+				C4E43050168C954400B80D00 /* Game */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -727,6 +734,17 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		C4E43050168C954400B80D00 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				C4E43051168C956700B80D00 /* GameScene.h */,
+				C4E43052168C956700B80D00 /* GameScene.m */,
+				C4E43054168C958000B80D00 /* GameLayer.h */,
+				C4E43055168C958000B80D00 /* GameLayer.m */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
 		DC0C49E6154AB4DD00B4B727 = {
 			isa = PBXGroup;
 			children = (
@@ -774,7 +792,6 @@
 				DC0C4B74154AB4DF00B4B727 /* Supporting Files */,
 				C4993D2016576C28008187A8 /* Scripts */,
 			);
-			name = lele;
 			path = lele;
 			sourceTree = "<group>";
 		};
@@ -1387,6 +1404,8 @@
 				C4514FB916588A150073A119 /* MainMenuScene.m in Sources */,
 				C4514FBC16588A350073A119 /* MainMenuLayer.m in Sources */,
 				C4514FE0165891EE0073A119 /* GameObject.m in Sources */,
+				C4E43053168C956700B80D00 /* GameScene.m in Sources */,
+				C4E43056168C958000B80D00 /* GameLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1551,6 +1570,7 @@
 				GCC_PREFIX_HEADER = lele/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"lele/libs/kazmath/include\"";
 				INFOPLIST_FILE = lele/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lele/libs/Flurry\"",
@@ -1560,6 +1580,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = lele;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1574,6 +1595,7 @@
 				GCC_PREFIX_HEADER = lele/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"lele/libs/kazmath/include\"";
 				INFOPLIST_FILE = lele/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lele/libs/Flurry\"",
@@ -1583,6 +1605,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = lele;
+				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

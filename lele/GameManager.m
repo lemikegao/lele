@@ -8,6 +8,7 @@
 
 #import "GameManager.h"
 #import "MainMenuScene.h"
+#import "GameScene.h"
 
 @interface GameManager()
 
@@ -114,6 +115,9 @@ static GameManager *_sharedGameManager = nil;   // singleton
             break;
         case kSceneTypeMainMenu:
             result = @"kSceneTypeMainMenu";
+            break;
+        case kSceneTypeGame:
+            result = @"kSceneTypeGame";
             break;
         default:
             [NSException raise:NSGenericException format:@"Unexpected SceneType."];
@@ -287,6 +291,9 @@ static GameManager *_sharedGameManager = nil;   // singleton
     switch (sceneID) {
         case kSceneTypeMainMenu:
             sceneToRun = [MainMenuScene node];
+            break;
+        case kSceneTypeGame:
+            sceneToRun = [GameScene node];
             break;
         default:
             CCLOG(@"Unknown sceneID, cannot run scene");
