@@ -304,7 +304,7 @@
 		DC0864B515BD8CE60044A820 /* CCNode+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+Debug.h"; sourceTree = "<group>"; };
 		DC0864B615BD8CE60044A820 /* CCNode+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+Debug.m"; sourceTree = "<group>"; };
 		DC0864B715BD8CE60044A820 /* ccCArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ccCArray.m; sourceTree = "<group>"; };
-		DC0C49F1154AB4DD00B4B727 /* chinAndCheeksTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chinAndCheeksTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0C49F1154AB4DD00B4B727 /* lele.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lele.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0C49F5154AB4DD00B4B727 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DC0C49F7154AB4DD00B4B727 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DC0C49F9154AB4DD00B4B727 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -730,7 +730,7 @@
 		DC0C49E6154AB4DD00B4B727 = {
 			isa = PBXGroup;
 			children = (
-				DC0C4A07154AB4DD00B4B727 /* chinAndCheeksTemplate */,
+				DC0C4A07154AB4DD00B4B727 /* lele */,
 				DC0C49F4154AB4DD00B4B727 /* Frameworks */,
 				DC0C49F2154AB4DD00B4B727 /* Products */,
 			);
@@ -739,7 +739,7 @@
 		DC0C49F2154AB4DD00B4B727 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC0C49F1154AB4DD00B4B727 /* chinAndCheeksTemplate.app */,
+				DC0C49F1154AB4DD00B4B727 /* lele.app */,
 				DC0C4B87154AB55A00B4B727 /* libcocos2d-library.a */,
 			);
 			name = Products;
@@ -762,7 +762,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DC0C4A07154AB4DD00B4B727 /* chinAndCheeksTemplate */ = {
+		DC0C4A07154AB4DD00B4B727 /* lele */ = {
 			isa = PBXGroup;
 			children = (
 				C4993D2316576C39008187A8 /* Classes */,
@@ -774,7 +774,8 @@
 				DC0C4B74154AB4DF00B4B727 /* Supporting Files */,
 				C4993D2016576C28008187A8 /* Scripts */,
 			);
-			path = chinAndCheeksTemplate;
+			name = lele;
+			path = lele;
 			sourceTree = "<group>";
 		};
 		DC0C4A08154AB4DD00B4B727 /* Resources */ = {
@@ -1283,9 +1284,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DC0C49F0154AB4DD00B4B727 /* chinAndCheeksTemplate */ = {
+		DC0C49F0154AB4DD00B4B727 /* lele */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC0C4B80154AB4DF00B4B727 /* Build configuration list for PBXNativeTarget "chinAndCheeksTemplate" */;
+			buildConfigurationList = DC0C4B80154AB4DF00B4B727 /* Build configuration list for PBXNativeTarget "lele" */;
 			buildPhases = (
 				DC0C49ED154AB4DD00B4B727 /* Sources */,
 				DC0C49EE154AB4DD00B4B727 /* Frameworks */,
@@ -1295,9 +1296,9 @@
 			);
 			dependencies = (
 			);
-			name = chinAndCheeksTemplate;
-			productName = chinAndCheeksTemplate;
-			productReference = DC0C49F1154AB4DD00B4B727 /* chinAndCheeksTemplate.app */;
+			name = lele;
+			productName = lele;
+			productReference = DC0C49F1154AB4DD00B4B727 /* lele.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DC0C4B86154AB55A00B4B727 /* cocos2d-library */ = {
@@ -1325,7 +1326,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = DC0C49EB154AB4DD00B4B727 /* Build configuration list for PBXProject "chinAndCheeksTemplate" */;
+			buildConfigurationList = DC0C49EB154AB4DD00B4B727 /* Build configuration list for PBXProject "lele" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1337,7 +1338,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DC0C49F0154AB4DD00B4B727 /* chinAndCheeksTemplate */,
+				DC0C49F0154AB4DD00B4B727 /* lele */,
 				DC0C4B86154AB55A00B4B727 /* cocos2d-library */,
 			);
 		};
@@ -1547,18 +1548,18 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = chinAndCheeksTemplate/Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"chinAndCheeksTemplate/libs/kazmath/include\"";
-				INFOPLIST_FILE = chinAndCheeksTemplate/Resources/Info.plist;
+				GCC_PREFIX_HEADER = lele/Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"lele/libs/kazmath/include\"";
+				INFOPLIST_FILE = lele/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/chinAndCheeksTemplate/libs/Flurry\"",
+					"\"$(SRCROOT)/lele/libs/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_NAME = chinAndCheeksTemplate;
+				PRODUCT_NAME = lele;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1570,18 +1571,18 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = chinAndCheeksTemplate/Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"chinAndCheeksTemplate/libs/kazmath/include\"";
-				INFOPLIST_FILE = chinAndCheeksTemplate/Resources/Info.plist;
+				GCC_PREFIX_HEADER = lele/Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"lele/libs/kazmath/include\"";
+				INFOPLIST_FILE = lele/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/chinAndCheeksTemplate/libs/Flurry\"",
+					"\"$(SRCROOT)/lele/libs/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_NAME = chinAndCheeksTemplate;
+				PRODUCT_NAME = lele;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1599,7 +1600,7 @@
 					"$(inherited)",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"chinAndCheeksTemplate/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = "\"lele/libs/kazmath/include\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1614,7 +1615,7 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/cocos2d_library.dst;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"chinAndCheeksTemplate/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = "\"lele/libs/kazmath/include\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1626,7 +1627,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DC0C49EB154AB4DD00B4B727 /* Build configuration list for PBXProject "chinAndCheeksTemplate" */ = {
+		DC0C49EB154AB4DD00B4B727 /* Build configuration list for PBXProject "lele" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC0C4B7E154AB4DF00B4B727 /* Debug */,
@@ -1635,7 +1636,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DC0C4B80154AB4DF00B4B727 /* Build configuration list for PBXNativeTarget "chinAndCheeksTemplate" */ = {
+		DC0C4B80154AB4DF00B4B727 /* Build configuration list for PBXNativeTarget "lele" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC0C4B81154AB4DF00B4B727 /* Debug */,
