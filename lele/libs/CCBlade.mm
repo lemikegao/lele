@@ -169,6 +169,7 @@ inline void CGPointSet(CGPoint *v, float x, float y){
 		}
     }
 #else // !USE_LAGRANGE
+
 	_path.push_front(v);
 	if (_path.size() > pointLimit) {
 		_path.pop_back();
@@ -193,8 +194,9 @@ inline void CGPointSet(CGPoint *v, float x, float y){
 - (void) clear{
     [_path removeAllObjects];
 	reset = NO;
-    if (_finish)
+//    if (_finish) {
         [self removeFromParentAndCleanup:YES];
+//    }
 }
 
 - (void) reset{
@@ -206,8 +208,15 @@ inline void CGPointSet(CGPoint *v, float x, float y){
 }
 
 - (void) update:(ccTime)dt {
-    
-    timeSinceLastPop += dt;
+    if (reset) {
+        timeSinceLastPop += dt*3.0;
+    } else {
+        if ([_path count] < 20) {
+            timeSinceLastPop += dt/2.0;
+        } else {
+            timeSinceLastPop += dt*2.0;
+        }
+    }
     
     float precision = 1./60.;
     float roundedTimeSinceLastPop = precision * roundf(timeSinceLastPop/precision); // helps because fps flucuate around 1./60.
@@ -216,18 +225,41 @@ inline void CGPointSet(CGPoint *v, float x, float y){
     timeSinceLastPop = timeSinceLastPop - numberOfPops * popTimeInterval;
     
     for (int pop = 0; pop < numberOfPops; pop++) {
-        
-        if ((reset && [_path count] > 0) || (self.autoDim && _willPop)) {
+        if ([_path count] >= 3) {
             [self pop:1];
-            if ([_path count] < 3) {
-                [self clear];
-                if (_finish) {
-                    return; // if we continue self will have been deallocated
-                }
+//        } else if ([_path count] >= 3 && [_path count] <= 20) {
+//            [self pop:1];
+//        } else if (reset && [_path count] >= 3 && [_path count] <= 20) {
+//            [self pop:1];
+        } else if (reset && [_path count] < 3) {
+            [self clear];
+            if (_finish) {
+                return;
             }
         }
-        
     }
+
+    
+//    timeSinceLastPop += dt;
+//
+//    float precision = 1./60.;
+//    float roundedTimeSinceLastPop = precision * roundf(timeSinceLastPop/precision); // helps because fps flucuate around 1./60.
+//
+//    int numberOfPops = (int)  (roundedTimeSinceLastPop/popTimeInterval) ;
+//    timeSinceLastPop = timeSinceLastPop - numberOfPops * popTimeInterval;
+//
+//    for (int pop = 0; pop < numberOfPops; pop++) {
+//
+//        if ((reset && [_path count] > 0) || (self.autoDim && _willPop)) {
+//            [self pop:1];
+//            if ([_path count] < 3) {
+//                [self clear];
+//                if (_finish) {
+//                    return; // if we continue self will have been deallocated
+//                }
+//            }
+//        }
+//    }
 }
 
 - (void) draw{
@@ -265,6 +297,7 @@ inline void CGPointSet(CGPoint *v, float x, float y){
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 2*[_path count]-2);
 	
     CC_INCREMENT_GL_DRAWS(1);
+    
 }
 
 - (void) finish

@@ -47,7 +47,8 @@
 @property (nonatomic) BOOL player2OutOfBoundaries;
 @property (nonatomic) int speedFactor;
 @property (nonatomic) float immunityTime;
-@property (nonatomic) CFMutableDictionaryRef map;
+@property (nonatomic, strong) CCBlade *player1Streak;
+@property (nonatomic, strong) CCBlade *player2Streak;
 
 @end
 
@@ -71,7 +72,6 @@
         self.player1TimeElapsedAfterHitObstacle = 0;
         self.player2TimeElapsedAfterHitObstacle = 0;
         self.immunityTime = 0.5;
-        self.map = CFDictionaryCreateMutable(NULL, 0, NULL, NULL);
         
         self.timerLabel = [CCLabelTTF labelWithString:@"3" dimensions:CGSizeMake(self.screenSize.width/2, self.screenSize.height/2) hAlignment:kCCTextAlignmentCenter fontName:@"Helvetica" fontSize:64];
         self.timerLabel.position = ccp(self.screenSize.width/2, self.screenSize.height/2);
@@ -110,16 +110,6 @@
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         CGPoint location = [[CCDirector sharedDirector] convertToGL:[touch locationInView:[touch view]]];
-//        CCLOG(@"player sprite size width: %f", self.playerSpriteSize.width);
-//        CCLOG(@"touch location: %@, player 1 sprite location: %@", NSStringFromCGPoint(location), NSStringFromCGPoint(self.player1Sprite.position));
-        
-        // testing finger trail
-        CCBlade *w = [CCBlade bladeWithMaximumPoint:50];
-        w.autoDim = YES;
-        w.texture = [[CCTextureCache sharedTextureCache] addImage:@"streak3.png"];
-        CFDictionaryAddValue(self.map,(__bridge const void *)(touch),(__bridge void*)w);
-        [self addChild:w];
-		[w push:location];
         
         // check if player 1 is ready
         if (self.isPlayer1FingerOnScreen == NO) {
@@ -134,6 +124,13 @@
                 }
                 [self unschedule:@selector(deductPointsPlayer1RemovedFinger)];
                 self.player1Touch = touch;
+                
+                // initialize player 1 streak
+                self.player1Streak = [CCBlade bladeWithMaximumPoint:50];
+                self.player1Streak.autoDim = NO;
+                self.player1Streak.texture = [[CCTextureCache sharedTextureCache] addImage:@"playerdash_long.png"];
+                [self addChild:self.player1Streak];
+                [self.player1Streak push:location];
                 
                 // start game if player 2 is ready
                 if (self.isPlayer2FingerOnScreen == YES && (self.currentGameState == kGameStateNone || self.currentGameState == kGameStateGameOver)) {
@@ -156,6 +153,13 @@
                 [self unschedule:@selector(deductPointsPlayer2RemovedFinger)];
                 self.player2Touch = touch;
                 
+                // initialize player 2 streak
+                self.player2Streak = [CCBlade bladeWithMaximumPoint:50];
+                self.player2Streak.autoDim = NO;
+                self.player2Streak.texture = [[CCTextureCache sharedTextureCache] addImage:@"playerdash2_long.png"];
+                [self addChild:self.player2Streak];
+                [self.player2Streak push:location];
+                
                 // start game if player 1 is ready
                 if (self.isPlayer1FingerOnScreen == YES && (self.currentGameState == kGameStateNone || self.currentGameState == kGameStateGameOver)) {
                     [self startCountdown];
@@ -170,16 +174,18 @@
         CGPoint newLocation = [self convertTouchToNodeSpace:touch];
         CGPoint previousLocation = [self convertToNodeSpace:[[CCDirector sharedDirector] convertToGL:[touch previousLocationInView:touch.view]]];
         
-        // testing finger trail
-        CCBlade *w = (CCBlade *)CFDictionaryGetValue(self.map, (__bridge const void *)(touch));
-		[w push:newLocation];
-        
         if (self.player1Touch == touch) {
             CCLOG(@"player 1 moved");
             self.player1Sprite.position = ccpAdd(self.player1Sprite.position, ccpSub(newLocation, previousLocation));
+            
+            // move player 1 streak
+            [self.player1Streak push:newLocation];
         } else if (self.player2Touch == touch) {
             CCLOG(@"player 2 moved");
             self.player2Sprite.position = ccpAdd(self.player2Sprite.position, ccpSub(newLocation, previousLocation));
+            
+            // move player 2 streak
+            [self.player2Streak push:newLocation];
         } else {
 //            CCLOG(@"Unknown touch moved");
         }
@@ -187,16 +193,17 @@
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        //testing finger trail
-        CCBlade *w = (CCBlade *)CFDictionaryGetValue(self.map, (__bridge const void *)(touch));
-        [w finish];
-        CFDictionaryRemoveValue(self.map,(__bridge const void *)(touch));
-        
+    for (UITouch *touch in touches) {        
         if (self.player1Touch == touch) {
             self.isPlayer1FingerOnScreen = NO;
+            
+            // remove player 1 streak
+            [self.player1Streak dim:YES];
         } else if (self.player2Touch == touch) {
             self.isPlayer2FingerOnScreen = NO;
+            
+            // remove player 2 streak
+            [self.player2Streak dim:YES];
         }
         
         if (self.currentGameState == kGameStateCountdown) {
@@ -249,17 +256,36 @@
 }
 
 -(void)addPlayerStartingPoints {
-    self.player1Sprite = [CCSprite spriteWithFile:@"player_start.png"];
+    self.player1Sprite = [CCSprite spriteWithFile:@"playercircle.png"];
     self.player1Sprite.anchorPoint = ccp(0, 0);
     self.player1Sprite.position = ccp(self.screenSize.width * 0.05f, self.screenSize.height * 0.05f);
+    self.player1Sprite.opacity = 100;
     [self addChild:self.player1Sprite];
     
-    self.player2Sprite = [CCSprite spriteWithFile:@"player_start.png"];
+    CCSprite *innerCircle1 = [CCSprite spriteWithFile:@"playercircle.png"];
+    innerCircle1.anchorPoint = ccp(0.5, 0.5);
+    innerCircle1.position = ccp(self.player1Sprite.contentSize.width * 0.5, self.player1Sprite.contentSize.height * 0.5);
+    innerCircle1.scale = 0.40;
+    [self.player1Sprite addChild:innerCircle1];
+    
+    [innerCircle1 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.60 scale:0.80], [CCScaleTo actionWithDuration:0.60 scale:0.40], nil]]];
+    
+    self.player2Sprite = [CCSprite spriteWithFile:@"playercircle2.png"];
     self.player2Sprite.anchorPoint = ccp(1, 0);
     self.player2Sprite.position = ccp(self.screenSize.width * 0.95f, self.screenSize.height * 0.05f);
+    self.player2Sprite.opacity = 100;
     [self addChild:self.player2Sprite];
     
-    self.playerSpriteSize = self.player1Sprite.boundingBox.size;
+    CCSprite *innerCircle2 = [CCSprite spriteWithFile:@"playercircle2.png"];
+    innerCircle2.anchorPoint = ccp(0.5, 0.5);
+    innerCircle2.position = ccp(self.player2Sprite.contentSize.width * 0.5, self.player2Sprite.contentSize.height * 0.5);
+    innerCircle2.scale = 0.40;
+    [self.player2Sprite addChild:innerCircle2];
+    
+    [innerCircle2 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.60 scale:0.80], [CCScaleTo actionWithDuration:0.60 scale:0.40], nil]]];
+    
+    CCSprite *tempObstacle = [CCSprite spriteWithFile:@"player_start.png"];
+    self.playerSpriteSize = tempObstacle.contentSize;
     self.maxObstacles = self.screenSize.width/self.playerSpriteSize.width/2;
     self.randomNumbers = [[NSMutableArray alloc] initWithCapacity:self.maxObstacles];
     CCLOG(@"max obstacles: %i", self.maxObstacles);
