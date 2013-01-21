@@ -7,6 +7,7 @@
 //
 
 #import "CCLayer.h"
+#import "Constants.h"
 
 @interface GameLayer : CCLayer
 

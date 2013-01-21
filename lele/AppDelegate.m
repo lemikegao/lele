@@ -32,6 +32,9 @@
 									sharegroup:nil
 								 multiSampling:NO
 							   numberOfSamples:0];
+    
+    // enable multi touch
+    glView.multipleTouchEnabled = YES;
 
 	director_ = (CCDirectorIOS*) [CCDirector sharedDirector];
 
@@ -81,7 +84,7 @@
 	// On iPad     : "-ipad", "-hd"
 	// On iPhone HD: "-hd"
 	CCFileUtils *sharedFileUtils = [CCFileUtils sharedFileUtils];
-	[sharedFileUtils setEnableFallbackSuffixes:NO];				// Default: NO. No fallback suffixes are going to be used
+	[sharedFileUtils setEnableFallbackSuffixes:YES];				// Default: NO. No fallback suffixes are going to be used
 	[sharedFileUtils setiPhoneRetinaDisplaySuffix:@"-hd"];		// Default on iPhone RetinaDisplay is "-hd"
 	[sharedFileUtils setiPadSuffix:@"-ipad"];					// Default on iPad is "ipad"
 	[sharedFileUtils setiPadRetinaDisplaySuffix:@"-ipadhd"];	// Default on iPad RetinaDisplay is "-ipadhd"
@@ -93,7 +96,7 @@
     [[GameManager sharedGameManager] setupAudioEngine];
 
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
-    [[GameManager sharedGameManager] runSceneWithID:kSceneTypeMainMenu];
+    [[GameManager sharedGameManager] runSceneWithID:kSceneTypeGame];
 
 	return YES;
 }

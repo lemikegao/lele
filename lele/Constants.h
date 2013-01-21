@@ -9,11 +9,20 @@
 #ifndef chinAndCheeksTemplate_Constants_h
 #define chinAndCheeksTemplate_Constants_h
 
+#define dashYBoundary 150
+
 typedef enum {
     kSceneTypeNone = 0,
     kSceneTypeMainMenu,
     kSceneTypeGame
 } SceneTypes;
+
+typedef enum {
+    kGameStateNone = 0,
+    kGameStateCountdown,
+    kGameStatePlay,
+    kGameStateGameOver
+} GameStates;
 
 typedef enum {
     kCharacterStateNone = 0,
@@ -30,7 +39,6 @@ typedef enum {
     kAudioManagerInitialized = 100,
     kAudioManagerLoading = 200,
     kAudioManagerReady = 300
-    
 } GameManagerSoundState;
 
 #define SFX_NOTLOADED NO

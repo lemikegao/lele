@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40F533116A04FB100B712E9 /* nexabold_40px-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = C40F532716A04FB100B712E9 /* nexabold_40px-ipad.fnt */; };
+		C40F533216A04FB100B712E9 /* nexabold_40px-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C40F532816A04FB100B712E9 /* nexabold_40px-ipad.png */; };
+		C40F533316A04FB100B712E9 /* nexabold_100px-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = C40F532916A04FB100B712E9 /* nexabold_100px-ipad.fnt */; };
+		C40F533416A04FB100B712E9 /* nexabold_100px-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C40F532A16A04FB100B712E9 /* nexabold_100px-ipad.png */; };
+		C40F533516A04FB100B712E9 /* nexabold_200px-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = C40F532B16A04FB100B712E9 /* nexabold_200px-ipad.fnt */; };
+		C40F533616A04FB100B712E9 /* nexabold_200px-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C40F532C16A04FB100B712E9 /* nexabold_200px-ipad.png */; };
+		C40F533716A04FB100B712E9 /* nexalight_20px-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = C40F532D16A04FB100B712E9 /* nexalight_20px-ipad.fnt */; };
+		C40F533816A04FB100B712E9 /* nexalight_20px-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C40F532E16A04FB100B712E9 /* nexalight_20px-ipad.png */; };
+		C40F533916A04FB100B712E9 /* nexalight_40px-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = C40F532F16A04FB100B712E9 /* nexalight_40px-ipad.fnt */; };
+		C40F533A16A04FB100B712E9 /* nexalight_40px-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C40F533016A04FB100B712E9 /* nexalight_40px-ipad.png */; };
 		C4514FB1165882960073A119 /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4514FB0165882960073A119 /* GameManager.m */; };
 		C4514FB6165889C00073A119 /* SoundEffects.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4514FB5165889C00073A119 /* SoundEffects.plist */; };
 		C4514FB916588A150073A119 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4514FB816588A150073A119 /* MainMenuScene.m */; };
@@ -23,7 +33,13 @@
 		C4514FE0165891EE0073A119 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C4514FDF165891EE0073A119 /* GameObject.m */; };
 		C46D83F61667001000C6529A /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D83F51667001000C6529A /* libFlurry.a */; };
 		C46D83F91667007800C6529A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D83F81667007800C6529A /* SystemConfiguration.framework */; };
+		C47E577D16A089CE00F915E8 /* nexalight_60px-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = C47E577B16A089CE00F915E8 /* nexalight_60px-ipad.fnt */; };
+		C47E577E16A089CE00F915E8 /* nexalight_60px-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C47E577C16A089CE00F915E8 /* nexalight_60px-ipad.png */; };
 		C4840F551667435300B39448 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4840F541667435300B39448 /* Default-568h@2x.png */; };
+		C4930EAC16A6EC3200BB7D7E /* dash.png in Resources */ = {isa = PBXBuildFile; fileRef = C4930EAB16A6EC3200BB7D7E /* dash.png */; };
+		C4A959FC16AD1B0C00CDAB13 /* CCBlade.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A959F916AD1B0C00CDAB13 /* CCBlade.mm */; };
+		C4A959FD16AD1B0C00CDAB13 /* TouchTrailLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A959FB16AD1B0C00CDAB13 /* TouchTrailLayer.m */; };
+		C4A959FF16AD1C6600CDAB13 /* streak3-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = C4A959FE16AD1C6600CDAB13 /* streak3-hd.png */; };
 		C4E43053168C956700B80D00 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E43052168C956700B80D00 /* GameScene.m */; };
 		C4E43056168C958000B80D00 /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E43055168C958000B80D00 /* GameLayer.m */; };
 		C4E4305D168CA0F200B80D00 /* player_start.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E4305C168CA0F200B80D00 /* player_start.png */; };
@@ -280,6 +296,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C40F532716A04FB100B712E9 /* nexabold_40px-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "nexabold_40px-ipad.fnt"; sourceTree = "<group>"; };
+		C40F532816A04FB100B712E9 /* nexabold_40px-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nexabold_40px-ipad.png"; sourceTree = "<group>"; };
+		C40F532916A04FB100B712E9 /* nexabold_100px-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "nexabold_100px-ipad.fnt"; sourceTree = "<group>"; };
+		C40F532A16A04FB100B712E9 /* nexabold_100px-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nexabold_100px-ipad.png"; sourceTree = "<group>"; };
+		C40F532B16A04FB100B712E9 /* nexabold_200px-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "nexabold_200px-ipad.fnt"; sourceTree = "<group>"; };
+		C40F532C16A04FB100B712E9 /* nexabold_200px-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nexabold_200px-ipad.png"; sourceTree = "<group>"; };
+		C40F532D16A04FB100B712E9 /* nexalight_20px-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "nexalight_20px-ipad.fnt"; sourceTree = "<group>"; };
+		C40F532E16A04FB100B712E9 /* nexalight_20px-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nexalight_20px-ipad.png"; sourceTree = "<group>"; };
+		C40F532F16A04FB100B712E9 /* nexalight_40px-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "nexalight_40px-ipad.fnt"; sourceTree = "<group>"; };
+		C40F533016A04FB100B712E9 /* nexalight_40px-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nexalight_40px-ipad.png"; sourceTree = "<group>"; };
 		C4514FAF165882960073A119 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		C4514FB0165882960073A119 /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
 		C4514FB3165886470073A119 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -303,7 +329,15 @@
 		C46D83F41667001000C6529A /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		C46D83F51667001000C6529A /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		C46D83F81667007800C6529A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C47E577B16A089CE00F915E8 /* nexalight_60px-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "nexalight_60px-ipad.fnt"; sourceTree = "<group>"; };
+		C47E577C16A089CE00F915E8 /* nexalight_60px-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nexalight_60px-ipad.png"; sourceTree = "<group>"; };
 		C4840F541667435300B39448 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C4930EAB16A6EC3200BB7D7E /* dash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash.png; sourceTree = "<group>"; };
+		C4A959F816AD1B0C00CDAB13 /* CCBlade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBlade.h; sourceTree = "<group>"; };
+		C4A959F916AD1B0C00CDAB13 /* CCBlade.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCBlade.mm; sourceTree = "<group>"; };
+		C4A959FA16AD1B0C00CDAB13 /* TouchTrailLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTrailLayer.h; sourceTree = "<group>"; };
+		C4A959FB16AD1B0C00CDAB13 /* TouchTrailLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTrailLayer.m; sourceTree = "<group>"; };
+		C4A959FE16AD1C6600CDAB13 /* streak3-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "streak3-hd.png"; sourceTree = "<group>"; };
 		C4E43051168C956700B80D00 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		C4E43052168C956700B80D00 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		C4E43054168C958000B80D00 /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
@@ -733,8 +767,31 @@
 		C4993D2D16576CDD008187A8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C40F532716A04FB100B712E9 /* nexabold_40px-ipad.fnt */,
+				C40F532816A04FB100B712E9 /* nexabold_40px-ipad.png */,
+				C40F532916A04FB100B712E9 /* nexabold_100px-ipad.fnt */,
+				C40F532A16A04FB100B712E9 /* nexabold_100px-ipad.png */,
+				C40F532B16A04FB100B712E9 /* nexabold_200px-ipad.fnt */,
+				C40F532C16A04FB100B712E9 /* nexabold_200px-ipad.png */,
+				C40F532D16A04FB100B712E9 /* nexalight_20px-ipad.fnt */,
+				C40F532E16A04FB100B712E9 /* nexalight_20px-ipad.png */,
+				C40F532F16A04FB100B712E9 /* nexalight_40px-ipad.fnt */,
+				C40F533016A04FB100B712E9 /* nexalight_40px-ipad.png */,
+				C47E577B16A089CE00F915E8 /* nexalight_60px-ipad.fnt */,
+				C47E577C16A089CE00F915E8 /* nexalight_60px-ipad.png */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		C4A959EE16AD1A5F00CDAB13 /* CCBlade */ = {
+			isa = PBXGroup;
+			children = (
+				C4A959F816AD1B0C00CDAB13 /* CCBlade.h */,
+				C4A959F916AD1B0C00CDAB13 /* CCBlade.mm */,
+				C4A959FA16AD1B0C00CDAB13 /* TouchTrailLayer.h */,
+				C4A959FB16AD1B0C00CDAB13 /* TouchTrailLayer.m */,
+			);
+			name = CCBlade;
 			sourceTree = "<group>";
 		};
 		C4E43050168C954400B80D00 /* Game */ = {
@@ -751,6 +808,8 @@
 		C4E4305B168CA0F200B80D00 /* game */ = {
 			isa = PBXGroup;
 			children = (
+				C4A959FE16AD1C6600CDAB13 /* streak3-hd.png */,
+				C4930EAB16A6EC3200BB7D7E /* dash.png */,
 				C4E4305C168CA0F200B80D00 /* player_start.png */,
 			);
 			path = game;
@@ -841,6 +900,7 @@
 		DC0C4B93154AB59800B4B727 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C4A959EE16AD1A5F00CDAB13 /* CCBlade */,
 				C46D83F31667001000C6529A /* Flurry */,
 				DC0C4B94154AB59800B4B727 /* cocos2d */,
 				DC0C4C54154AB59800B4B727 /* CocosDenshion */,
@@ -1400,6 +1460,20 @@
 				C4514FDD16588CB90073A119 /* mainmenu_art.pvr.ccz in Resources */,
 				C4840F551667435300B39448 /* Default-568h@2x.png in Resources */,
 				C4E4305D168CA0F200B80D00 /* player_start.png in Resources */,
+				C40F533116A04FB100B712E9 /* nexabold_40px-ipad.fnt in Resources */,
+				C40F533216A04FB100B712E9 /* nexabold_40px-ipad.png in Resources */,
+				C40F533316A04FB100B712E9 /* nexabold_100px-ipad.fnt in Resources */,
+				C40F533416A04FB100B712E9 /* nexabold_100px-ipad.png in Resources */,
+				C40F533516A04FB100B712E9 /* nexabold_200px-ipad.fnt in Resources */,
+				C40F533616A04FB100B712E9 /* nexabold_200px-ipad.png in Resources */,
+				C40F533716A04FB100B712E9 /* nexalight_20px-ipad.fnt in Resources */,
+				C40F533816A04FB100B712E9 /* nexalight_20px-ipad.png in Resources */,
+				C40F533916A04FB100B712E9 /* nexalight_40px-ipad.fnt in Resources */,
+				C40F533A16A04FB100B712E9 /* nexalight_40px-ipad.png in Resources */,
+				C47E577D16A089CE00F915E8 /* nexalight_60px-ipad.fnt in Resources */,
+				C47E577E16A089CE00F915E8 /* nexalight_60px-ipad.png in Resources */,
+				C4930EAC16A6EC3200BB7D7E /* dash.png in Resources */,
+				C4A959FF16AD1C6600CDAB13 /* streak3-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1418,6 +1492,8 @@
 				C4514FE0165891EE0073A119 /* GameObject.m in Sources */,
 				C4E43053168C956700B80D00 /* GameScene.m in Sources */,
 				C4E43056168C958000B80D00 /* GameLayer.m in Sources */,
+				C4A959FC16AD1B0C00CDAB13 /* CCBlade.mm in Sources */,
+				C4A959FD16AD1B0C00CDAB13 /* TouchTrailLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1546,7 +1622,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1565,7 +1641,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
