@@ -74,14 +74,16 @@
         self.immunityTime = 0.5;
         
         self.timerLabel = [CCLabelTTF labelWithString:@"3" dimensions:CGSizeMake(self.screenSize.width/2, self.screenSize.height/2) hAlignment:kCCTextAlignmentCenter fontName:@"Helvetica" fontSize:64];
+//        self.timerLabel = [CCLabelBMFont labelWithString:@"3" fntFile:@"nexabold_200px.fnt"];
         self.timerLabel.position = ccp(self.screenSize.width/2, self.screenSize.height/2);
+        self.timerLabel.color = ccc3(255, 182, 0);
         self.timerLabel.opacity = 0;
         [self addChild:self.timerLabel z:1000];
         
         // init obstacles
         self.obstacles = [[NSMutableArray alloc] initWithCapacity:100];
         // set up batch node for players and obstacles
-        self.batchNode = [CCSpriteBatchNode batchNodeWithFile:@"player_start.png" capacity:100];
+        self.batchNode = [CCSpriteBatchNode batchNodeWithFile:@"obstacle.png" capacity:100];
         [self addChild:self.batchNode z:0];
         
         // init dash boundary
@@ -99,7 +101,13 @@
         }
         [self addChild:dashBatchNode z:100];
         
-        [self addPlayerStartingPoints];
+        CCSprite *tempObstacle = [CCSprite spriteWithFile:@"obstacle.png"];
+        self.playerSpriteSize = tempObstacle.contentSize;
+        self.maxObstacles = self.screenSize.width/self.playerSpriteSize.width/2;
+        self.randomNumbers = [[NSMutableArray alloc] initWithCapacity:self.maxObstacles];
+        
+        [self addStartingPointForPlayer:1];
+        [self addStartingPointForPlayer:2];
         
         [self initScore];
     }
@@ -132,6 +140,9 @@
                 [self addChild:self.player1Streak];
                 [self.player1Streak push:location];
                 
+                // remove finger placeholder
+                [self removeStartingPointForPlayer:1];
+                
                 // start game if player 2 is ready
                 if (self.isPlayer2FingerOnScreen == YES && (self.currentGameState == kGameStateNone || self.currentGameState == kGameStateGameOver)) {
                     [self startCountdown];
@@ -160,6 +171,9 @@
                 [self addChild:self.player2Streak];
                 [self.player2Streak push:location];
                 
+                // remove finger placeholder
+                [self removeStartingPointForPlayer:2];
+                
                 // start game if player 1 is ready
                 if (self.isPlayer1FingerOnScreen == YES && (self.currentGameState == kGameStateNone || self.currentGameState == kGameStateGameOver)) {
                     [self startCountdown];
@@ -176,13 +190,17 @@
         
         if (self.player1Touch == touch) {
             CCLOG(@"player 1 moved");
-            self.player1Sprite.position = ccpAdd(self.player1Sprite.position, ccpSub(newLocation, previousLocation));
+            if (self.player1Sprite != nil) {
+                self.player1Sprite.position = ccpAdd(self.player1Sprite.position, ccpSub(newLocation, previousLocation));
+            }
             
             // move player 1 streak
             [self.player1Streak push:newLocation];
         } else if (self.player2Touch == touch) {
             CCLOG(@"player 2 moved");
-            self.player2Sprite.position = ccpAdd(self.player2Sprite.position, ccpSub(newLocation, previousLocation));
+            if (self.player2Sprite != nil) {
+                self.player2Sprite.position = ccpAdd(self.player2Sprite.position, ccpSub(newLocation, previousLocation));
+            }
             
             // move player 2 streak
             [self.player2Streak push:newLocation];
@@ -199,11 +217,27 @@
             
             // remove player 1 streak
             [self.player1Streak dim:YES];
+            
+            // add finger placeholder
+            if (self.player1Sprite != nil) {
+                [self.player1Sprite removeAllChildrenWithCleanup:YES];
+                [self.player1Sprite removeFromParentAndCleanup:YES];
+            }
+            
+            [self addStartingPointForPlayer:1];
         } else if (self.player2Touch == touch) {
             self.isPlayer2FingerOnScreen = NO;
             
             // remove player 2 streak
             [self.player2Streak dim:YES];
+            
+            // add finger placeholder
+            if (self.player2Sprite != nil) {
+                [self.player2Sprite removeAllChildrenWithCleanup:YES];
+                [self.player2Sprite removeFromParentAndCleanup:YES];
+            }
+            
+            [self addStartingPointForPlayer:2];
         }
         
         if (self.currentGameState == kGameStateCountdown) {
@@ -255,40 +289,59 @@
     }
 }
 
--(void)addPlayerStartingPoints {
-    self.player1Sprite = [CCSprite spriteWithFile:@"playercircle.png"];
-    self.player1Sprite.anchorPoint = ccp(0, 0);
-    self.player1Sprite.position = ccp(self.screenSize.width * 0.05f, self.screenSize.height * 0.05f);
-    self.player1Sprite.opacity = 100;
-    [self addChild:self.player1Sprite];
-    
-    CCSprite *innerCircle1 = [CCSprite spriteWithFile:@"playercircle.png"];
-    innerCircle1.anchorPoint = ccp(0.5, 0.5);
-    innerCircle1.position = ccp(self.player1Sprite.contentSize.width * 0.5, self.player1Sprite.contentSize.height * 0.5);
-    innerCircle1.scale = 0.40;
-    [self.player1Sprite addChild:innerCircle1];
-    
-    [innerCircle1 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.60 scale:0.80], [CCScaleTo actionWithDuration:0.60 scale:0.40], nil]]];
-    
-    self.player2Sprite = [CCSprite spriteWithFile:@"playercircle2.png"];
-    self.player2Sprite.anchorPoint = ccp(1, 0);
-    self.player2Sprite.position = ccp(self.screenSize.width * 0.95f, self.screenSize.height * 0.05f);
-    self.player2Sprite.opacity = 100;
-    [self addChild:self.player2Sprite];
-    
-    CCSprite *innerCircle2 = [CCSprite spriteWithFile:@"playercircle2.png"];
-    innerCircle2.anchorPoint = ccp(0.5, 0.5);
-    innerCircle2.position = ccp(self.player2Sprite.contentSize.width * 0.5, self.player2Sprite.contentSize.height * 0.5);
-    innerCircle2.scale = 0.40;
-    [self.player2Sprite addChild:innerCircle2];
-    
-    [innerCircle2 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.60 scale:0.80], [CCScaleTo actionWithDuration:0.60 scale:0.40], nil]]];
-    
-    CCSprite *tempObstacle = [CCSprite spriteWithFile:@"player_start.png"];
-    self.playerSpriteSize = tempObstacle.contentSize;
-    self.maxObstacles = self.screenSize.width/self.playerSpriteSize.width/2;
-    self.randomNumbers = [[NSMutableArray alloc] initWithCapacity:self.maxObstacles];
-    CCLOG(@"max obstacles: %i", self.maxObstacles);
+-(void)addStartingPointForPlayer:(int)playerNum {
+    if (playerNum == 1) {
+        self.player1Sprite = [CCSprite spriteWithFile:@"playercircle.png"];     // TODO: initialize in a separate method
+        self.player1Sprite.anchorPoint = ccp(0, 0);
+        self.player1Sprite.position = ccp(self.screenSize.width * 0.05f, self.screenSize.height * 0.05f);
+        self.player1Sprite.opacity = 100;
+        [self addChild:self.player1Sprite];
+        
+        CCSprite *innerCircle1 = [CCSprite spriteWithFile:@"playercircle.png"];
+        innerCircle1.anchorPoint = ccp(0.5, 0.5);
+        innerCircle1.position = ccp(self.player1Sprite.contentSize.width * 0.5, self.player1Sprite.contentSize.height * 0.5);
+        innerCircle1.scale = 0.40;
+        [self.player1Sprite addChild:innerCircle1];
+        
+        [innerCircle1 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.40 scale:0.80], [CCScaleTo actionWithDuration:0.40 scale:0.40], nil]]];
+    } else if (playerNum == 2) {
+        self.player2Sprite = [CCSprite spriteWithFile:@"playercircle2.png"];
+        self.player2Sprite.anchorPoint = ccp(1, 0);
+        self.player2Sprite.position = ccp(self.screenSize.width * 0.95f, self.screenSize.height * 0.05f);
+        self.player2Sprite.opacity = 100;
+        [self addChild:self.player2Sprite];
+        
+        CCSprite *innerCircle2 = [CCSprite spriteWithFile:@"playercircle2.png"];
+        innerCircle2.anchorPoint = ccp(0.5, 0.5);
+        innerCircle2.position = ccp(self.player2Sprite.contentSize.width * 0.5, self.player2Sprite.contentSize.height * 0.5);
+        innerCircle2.scale = 0.40;
+        [self.player2Sprite addChild:innerCircle2];
+        
+        [innerCircle2 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.40 scale:0.80], [CCScaleTo actionWithDuration:0.40 scale:0.40], nil]]];
+    } else {
+        CCLOG(@"GameLayer.m->addStartingPointForPlayer: Unknown player: %i", playerNum);
+    }
+}
+
+-(void)removeStartingPointForPlayer:(int)playerNum {
+    if (playerNum == 1) {
+        [self.player1Sprite removeAllChildrenWithCleanup:YES];    //TODO: need to stop action of inner circle before removing?
+        [self.player1Sprite runAction:[CCSequence actions:[CCFadeOut actionWithDuration:1], [CCCallBlock actionWithBlock:^{
+            self.player1Sprite = nil;
+            [self.player1Sprite removeAllChildrenWithCleanup:YES];
+            [self.player1Sprite removeFromParentAndCleanup:YES];
+        }], nil]];
+        
+    } else if (playerNum == 2) {
+        [self.player2Sprite removeAllChildrenWithCleanup:YES];    //TODO: need to stop action of inner circle before removing?
+        [self.player2Sprite runAction:[CCSequence actions:[CCFadeOut actionWithDuration:1], [CCCallBlock actionWithBlock:^{
+            self.player2Sprite = nil;
+            [self.player2Sprite removeAllChildrenWithCleanup:YES];
+            [self.player2Sprite removeFromParentAndCleanup:YES];
+        }], nil]];
+    } else {
+        CCLOG(@"GameLayer.m->removeStartingPointForPlayer: Unknown player: %i", playerNum);
+    }
 }
 
 -(void)initScore {
@@ -494,12 +547,73 @@
         int randomNumber = [[self.randomNumbers objectAtIndex:randomIndex] intValue];
         [self.randomNumbers removeObjectAtIndex:randomIndex];
         
-        CCSprite *obstacle = [CCSprite spriteWithFile:@"player_start.png"];
-        CCSprite *obstacle2 = [CCSprite spriteWithFile:@"player_start.png"];
+        CCSprite *obstacle = [CCSprite spriteWithFile:@"obstacle.png"];
+        CCSprite *obstacle2 = [CCSprite spriteWithFile:@"obstacle.png"];
         obstacle.anchorPoint = ccp(0, 0);
         obstacle2.anchorPoint = ccp(0, 0);
         obstacle.position = ccp(randomNumber*2 * self.playerSpriteSize.width, self.screenSize.height);
         obstacle2.position = ccp(obstacle.position.x + self.playerSpriteSize.width, self.screenSize.height);
+        
+        obstacle.opacity = 127;
+        obstacle2.opacity = 127;
+        switch (randomNumber) {
+            case 0:
+                obstacle.color = ccc3(202, 38, 125);
+                obstacle2.color = ccc3(166, 1, 35);
+                break;
+            case 1:
+                obstacle.color = ccc3(195, 0, 0);
+                obstacle2.color = ccc3(200, 0, 0);
+                break;
+            case 2:
+                obstacle.color = ccc3(255, 45, 0);
+                obstacle2.color = ccc3(220, 92, 1);
+                break;
+            case 3:
+                obstacle.color = ccc3(237, 111, 0);
+                obstacle2.color = ccc3(240, 157, 1);
+                break;
+            case 4:
+                obstacle.color = ccc3(237, 245, 1);
+                obstacle2.color = ccc3(153, 229, 0);
+                break;
+            case 5:
+                obstacle.color = ccc3(0, 217, 78);
+                obstacle2.color = ccc3(0, 198, 175);
+                break;
+            case 6:
+                obstacle.color = ccc3(0, 228, 211);
+                obstacle2.color = ccc3(0, 191, 233);
+                break;
+            case 7:
+                obstacle.color = ccc3(1, 141, 252);
+                obstacle2.color = ccc3(0, 109, 226);
+                break;
+            case 8:
+                obstacle.color = ccc3(93, 7, 254);
+                obstacle2.color = ccc3(88, 0, 146);
+                break;
+            case 9:
+                obstacle.color = ccc3(98, 46, 131);
+                obstacle2.color = ccc3(93, 93, 93);
+                break;
+            default:
+                obstacle.color = ccc3(255, 255, 255);
+                obstacle2.color = ccc3(255, 255, 255);
+                break;
+        }
+        
+        CCSprite *insideSquare = [CCSprite spriteWithFile:@"obstacle.png"];
+        CCSprite *insideSquare2 = [CCSprite spriteWithFile:@"obstacle.png"];
+        insideSquare.color = obstacle.color;
+        insideSquare2.color = obstacle2.color;
+        insideSquare.scale = 0.6;
+        insideSquare2.scale = 0.6;
+        insideSquare.position = ccp(obstacle.contentSize.width/2, obstacle.contentSize.height/2);
+        insideSquare2.position = ccp(obstacle2.contentSize.width/2, obstacle.contentSize.height/2);
+        [obstacle addChild:insideSquare];
+        [obstacle2 addChild:insideSquare2];
+
         [self.obstacles addObject:obstacle];
         [self.obstacles addObject:obstacle2];
         [self.batchNode addChild:obstacle];
@@ -523,8 +637,6 @@
         [self startGame];
     } else {
         self.timeToPlay--;
-        
-        self.timeToPlay = 0; // speeds up the countdown
         
         NSString *timerString;
         if (self.timeToPlay == 0) {
@@ -688,6 +800,7 @@
             // remove obstacle if off screen
             if (obstacle.position.y < -obstacle.contentSize.height) {
                 [self.indexesForObstaclesToBeRemoved addIndex:i];
+                [obstacle removeAllChildrenWithCleanup:YES];
                 [obstacle removeFromParentAndCleanup:YES];
             }
         }
