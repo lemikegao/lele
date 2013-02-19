@@ -10,11 +10,18 @@
 #define chinAndCheeksTemplate_Constants_h
 
 #define dashYBoundary 150
+#define player1Color ccc3(201, 43, 122)
+#define player2Color ccc3(116, 193, 116)
+#define timerColor ccc3(255, 182, 0)
+#define lvlDescriptionColor ccc3(93, 93, 93)
 
 typedef enum {
     kSceneTypeNone = 0,
     kSceneTypeMainMenu,
-    kSceneTypeGame
+    kSceneTypeRainingColors,
+    kSceneTypeSumoFinger,
+    kSceneTypeOrbDodge,
+    kSceneTypeTapAndSwitch
 } SceneTypes;
 
 typedef enum {

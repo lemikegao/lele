@@ -10,4 +10,7 @@
 
 @interface MainMenuScene : CCScene
 
+-(void)showDescriptionForLevel:(int)levelNum;
+-(void)hideDescription;
+
 @end

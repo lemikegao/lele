@@ -6,10 +6,10 @@
 //
 //
 
-#import "GameLayer.h"
+#import "RainingColorsLayer.h"
 #import "CCBlade.h"
 
-@interface GameLayer ()
+@interface RainingColorsLayer ()
 
 @property (nonatomic) CGSize screenSize;
 @property (nonatomic) GameStates currentGameState;
@@ -21,7 +21,8 @@
 @property (nonatomic, strong) CCSprite *player2Sprite;
 @property (nonatomic) CGSize playerSpriteSize;
 @property (nonatomic) int timeToPlay;
-@property (nonatomic, strong) CCLabelTTF *timerLabel;
+@property (nonatomic, strong) CCLabelBMFont *countdownTimerLabel;
+@property (nonatomic, strong) CCLabelBMFont *gameTimerLabel;
 @property (nonatomic, strong) CCSpriteBatchNode *batchNode;
 @property (nonatomic, strong) NSMutableArray *obstacles;
 @property (nonatomic) int maxObstacles;
@@ -52,12 +53,12 @@
 
 @end
 
-@implementation GameLayer
+@implementation RainingColorsLayer
 
 -(id)init {
     self = [super init];
     if (self != nil) {
-        CCLOG(@"GameLayer.m->init");
+        CCLOG(@"RainingColorsLayer.m->init");
         // enable touch
         self.isTouchEnabled = YES;
         self.isPlayer1FingerOnScreen = NO;
@@ -73,12 +74,23 @@
         self.player2TimeElapsedAfterHitObstacle = 0;
         self.immunityTime = 0.5;
         
-        self.timerLabel = [CCLabelTTF labelWithString:@"3" dimensions:CGSizeMake(self.screenSize.width/2, self.screenSize.height/2) hAlignment:kCCTextAlignmentCenter fontName:@"Helvetica" fontSize:64];
-//        self.timerLabel = [CCLabelBMFont labelWithString:@"3" fntFile:@"nexabold_200px.fnt"];
-        self.timerLabel.position = ccp(self.screenSize.width/2, self.screenSize.height/2);
-        self.timerLabel.color = ccc3(255, 182, 0);
-        self.timerLabel.opacity = 0;
-        [self addChild:self.timerLabel z:1000];
+        self.countdownTimerLabel = [CCLabelBMFont labelWithString:@"3" fntFile:@"nexabold_200px.fnt"];
+        self.countdownTimerLabel.position = ccp(self.screenSize.width/2, self.screenSize.height/2);
+        self.countdownTimerLabel.color = timerColor;
+        self.countdownTimerLabel.opacity = 0;
+        [self addChild:self.countdownTimerLabel z:1000];
+        
+        CCLabelBMFont *timeLabel = [CCLabelBMFont labelWithString:@"TIME" fntFile:@"nexalight_20px.fnt"];
+        timeLabel.color = timerColor;
+        timeLabel.anchorPoint = ccp(0.5, 1);
+        timeLabel.position = ccp(self.screenSize.width*0.5, self.screenSize.height*0.98);
+        [self addChild:timeLabel z:1000];
+        
+        self.gameTimerLabel = [CCLabelBMFont labelWithString:@"30" fntFile:@"nexalight_60px.fnt"];
+        self.gameTimerLabel.color = timerColor;
+        self.gameTimerLabel.anchorPoint = ccp(0.5, 1);
+        self.gameTimerLabel.position = ccp(self.screenSize.width*0.5, self.screenSize.height*0.95);
+        [self addChild:self.gameTimerLabel z:1000];
         
         // init obstacles
         self.obstacles = [[NSMutableArray alloc] initWithCapacity:100];
@@ -136,7 +148,7 @@
                 // initialize player 1 streak
                 self.player1Streak = [CCBlade bladeWithMaximumPoint:50];
                 self.player1Streak.autoDim = NO;
-                self.player1Streak.texture = [[CCTextureCache sharedTextureCache] addImage:@"playerdash_long.png"];
+                self.player1Streak.texture = [[CCTextureCache sharedTextureCache] addImage:@"playerdash1_long.png"];
                 [self addChild:self.player1Streak];
                 [self.player1Streak push:location];
                 
@@ -189,7 +201,7 @@
         CGPoint previousLocation = [self convertToNodeSpace:[[CCDirector sharedDirector] convertToGL:[touch previousLocationInView:touch.view]]];
         
         if (self.player1Touch == touch) {
-            CCLOG(@"player 1 moved");
+//            CCLOG(@"player 1 moved");
             if (self.player1Sprite != nil) {
                 self.player1Sprite.position = ccpAdd(self.player1Sprite.position, ccpSub(newLocation, previousLocation));
             }
@@ -197,7 +209,7 @@
             // move player 1 streak
             [self.player1Streak push:newLocation];
         } else if (self.player2Touch == touch) {
-            CCLOG(@"player 2 moved");
+//            CCLOG(@"player 2 moved");
             if (self.player2Sprite != nil) {
                 self.player2Sprite.position = ccpAdd(self.player2Sprite.position, ccpSub(newLocation, previousLocation));
             }
@@ -213,6 +225,10 @@
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {        
         if (self.player1Touch == touch) {
+            if (self.currentGameState == kGameStateCountdown) {
+                [self unscheduleAllSelectors];
+                self.currentGameState = kGameStateNone;
+            }
             self.isPlayer1FingerOnScreen = NO;
             
             // remove player 1 streak
@@ -226,6 +242,10 @@
             
             [self addStartingPointForPlayer:1];
         } else if (self.player2Touch == touch) {
+            if (self.currentGameState == kGameStateCountdown) {
+                [self unscheduleAllSelectors];
+                self.currentGameState = kGameStateNone;
+            }
             self.isPlayer2FingerOnScreen = NO;
             
             // remove player 2 streak
@@ -240,10 +260,7 @@
             [self addStartingPointForPlayer:2];
         }
         
-        if (self.currentGameState == kGameStateCountdown) {
-            [self unscheduleAllSelectors];
-            self.currentGameState = kGameStateNone;
-        } else if (self.currentGameState == kGameStatePlay) {
+         if (self.currentGameState == kGameStatePlay) {
             if (self.player1Touch == touch) {
                 CCLOG(@"player 1 removed finger");
                 [self.player1DeductReasonPlayerLabel stopAllActions];
@@ -254,7 +271,7 @@
                 self.player1DeductReasonLabel.visible = YES;
                 self.player1DeductReasonLabel.opacity = 255;
                 [self deductPointsPlayer1RemovedFinger];
-                [self schedule:@selector(deductPointsPlayer1RemovedFinger) interval:0.5];
+                [self schedule:@selector(deductPointsPlayer1RemovedFinger) interval:1];
     //            if (self.isPlayer2FingerOnScreen == NO && self.isGameActive == YES) {
     //                [self endGame];
     //            }
@@ -268,7 +285,7 @@
                 self.player2DeductReasonLabel.visible = YES;
                 self.player2DeductReasonLabel.opacity = 255;
                 [self deductPointsPlayer2RemovedFinger];
-                [self schedule:@selector(deductPointsPlayer2RemovedFinger) interval:0.5];
+                [self schedule:@selector(deductPointsPlayer2RemovedFinger) interval:1];
     //            if (self.isPlayer1FingerOnScreen == NO && self.isGameActive == YES) {
     //                [self endGame];
     //            }
@@ -291,13 +308,15 @@
 
 -(void)addStartingPointForPlayer:(int)playerNum {
     if (playerNum == 1) {
-        self.player1Sprite = [CCSprite spriteWithFile:@"playercircle.png"];     // TODO: initialize in a separate method
+        self.player1Sprite = [CCSprite spriteWithFile:@"playercircle_white.png"];     // TODO: initialize in a separate method
+        self.player1Sprite.color = player1Color;
         self.player1Sprite.anchorPoint = ccp(0, 0);
         self.player1Sprite.position = ccp(self.screenSize.width * 0.05f, self.screenSize.height * 0.05f);
         self.player1Sprite.opacity = 100;
         [self addChild:self.player1Sprite];
         
-        CCSprite *innerCircle1 = [CCSprite spriteWithFile:@"playercircle.png"];
+        CCSprite *innerCircle1 = [CCSprite spriteWithFile:@"playercircle_white.png"];
+        innerCircle1.color = player1Color;
         innerCircle1.anchorPoint = ccp(0.5, 0.5);
         innerCircle1.position = ccp(self.player1Sprite.contentSize.width * 0.5, self.player1Sprite.contentSize.height * 0.5);
         innerCircle1.scale = 0.40;
@@ -305,13 +324,15 @@
         
         [innerCircle1 runAction:[CCRepeatForever actionWithAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.40 scale:0.80], [CCScaleTo actionWithDuration:0.40 scale:0.40], nil]]];
     } else if (playerNum == 2) {
-        self.player2Sprite = [CCSprite spriteWithFile:@"playercircle2.png"];
+        self.player2Sprite = [CCSprite spriteWithFile:@"playercircle_white.png"];
+        self.player2Sprite.color = player2Color;
         self.player2Sprite.anchorPoint = ccp(1, 0);
         self.player2Sprite.position = ccp(self.screenSize.width * 0.95f, self.screenSize.height * 0.05f);
         self.player2Sprite.opacity = 100;
         [self addChild:self.player2Sprite];
         
-        CCSprite *innerCircle2 = [CCSprite spriteWithFile:@"playercircle2.png"];
+        CCSprite *innerCircle2 = [CCSprite spriteWithFile:@"playercircle_white.png"];
+        innerCircle2.color = player2Color;
         innerCircle2.anchorPoint = ccp(0.5, 0.5);
         innerCircle2.position = ccp(self.player2Sprite.contentSize.width * 0.5, self.player2Sprite.contentSize.height * 0.5);
         innerCircle2.scale = 0.40;
@@ -327,17 +348,17 @@
     if (playerNum == 1) {
         [self.player1Sprite removeAllChildrenWithCleanup:YES];    //TODO: need to stop action of inner circle before removing?
         [self.player1Sprite runAction:[CCSequence actions:[CCFadeOut actionWithDuration:1], [CCCallBlock actionWithBlock:^{
-            self.player1Sprite = nil;
             [self.player1Sprite removeAllChildrenWithCleanup:YES];
             [self.player1Sprite removeFromParentAndCleanup:YES];
+            self.player1Sprite = nil;
         }], nil]];
         
     } else if (playerNum == 2) {
         [self.player2Sprite removeAllChildrenWithCleanup:YES];    //TODO: need to stop action of inner circle before removing?
         [self.player2Sprite runAction:[CCSequence actions:[CCFadeOut actionWithDuration:1], [CCCallBlock actionWithBlock:^{
-            self.player2Sprite = nil;
             [self.player2Sprite removeAllChildrenWithCleanup:YES];
             [self.player2Sprite removeFromParentAndCleanup:YES];
+            self.player2Sprite = nil;
         }], nil]];
     } else {
         CCLOG(@"GameLayer.m->removeStartingPointForPlayer: Unknown player: %i", playerNum);
@@ -348,8 +369,8 @@
     // add Player 1 and Player 2 label
     CCLabelBMFont *player1Label = [CCLabelBMFont labelWithString:@"PLAYER 1" fntFile:@"nexalight_20px.fnt"];
     CCLabelBMFont *player2Label = [CCLabelBMFont labelWithString:@"PLAYER 2" fntFile:@"nexalight_20px.fnt"];
-    player1Label.color = ccc3(221, 49, 135);
-    player2Label.color = ccc3(104, 193, 104);
+    player1Label.color = player1Color;
+    player2Label.color = player2Color;
     player1Label.anchorPoint = ccp(0, 1);
     player2Label.anchorPoint = ccp(1, 1);
     player1Label.position = ccp(self.screenSize.width * 0.05, self.screenSize.height * 0.98);
@@ -360,8 +381,8 @@
     self.player2Score = 0;
     self.player1ScoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"nexalight_60px.fnt"];
     self.player2ScoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"nexalight_60px.fnt"];
-    self.player1ScoreLabel.color = ccc3(221, 49, 135);
-    self.player2ScoreLabel.color = ccc3(104, 193, 104);
+    self.player1ScoreLabel.color = player1Color;
+    self.player2ScoreLabel.color = player2Color;
     self.player1ScoreLabel.anchorPoint = ccp(0, 1);
     self.player1ScoreLabel.position = ccp(self.screenSize.width * 0.05, self.screenSize.height * 0.95);
     self.player2ScoreLabel.anchorPoint = ccp(1, 1);
@@ -370,8 +391,8 @@
     // set up player deduct points labels
     self.player1DeductPointsLabel = [CCLabelBMFont labelWithString:@"-100" fntFile:@"nexabold_100px.fnt"];
     self.player2DeductPointsLabel = [CCLabelBMFont labelWithString:@"-100" fntFile:@"nexabold_100px.fnt"];
-    self.player1DeductPointsLabel.color = ccc3(221, 49, 135);
-    self.player2DeductPointsLabel.color = ccc3(104, 193, 104);
+    self.player1DeductPointsLabel.color = player1Color;
+    self.player2DeductPointsLabel.color = player2Color;
     self.player1DeductPointsLabel.anchorPoint = ccp(0, 1);
     self.player2DeductPointsLabel.anchorPoint = ccp(1, 1);
     self.player1DeductPointsLabel.position = ccp(self.screenSize.width * 0.07, self.screenSize.height * 0.85);
@@ -382,20 +403,20 @@
     // set up player deduct reason player labels
     self.player1DeductReasonPlayerLabel = [CCLabelBMFont labelWithString:@"Player 1" fntFile:@"nexabold_40px.fnt"];
     self.player2DeductReasonPlayerLabel = [CCLabelBMFont labelWithString:@"Player 2" fntFile:@"nexabold_40px.fnt"];
-    self.player1DeductReasonPlayerLabel.color = ccc3(221, 49, 135);
-    self.player2DeductReasonPlayerLabel.color = ccc3(104, 193, 104);
+    self.player1DeductReasonPlayerLabel.color = player1Color;
+    self.player2DeductReasonPlayerLabel.color = player2Color;
     self.player1DeductReasonPlayerLabel.anchorPoint = ccp(0, 1);
     self.player2DeductReasonPlayerLabel.anchorPoint = ccp(0, 1);
-    self.player1DeductReasonPlayerLabel.position = ccp(self.screenSize.width * 0.27, self.screenSize.height * 0.97);
-    self.player2DeductReasonPlayerLabel.position = ccp(self.screenSize.width * 0.27, self.screenSize.height * 0.91);
+    self.player1DeductReasonPlayerLabel.position = ccp(self.screenSize.width * 0.27, self.screenSize.height * 0.88);
+    self.player2DeductReasonPlayerLabel.position = ccp(self.screenSize.width * 0.27, self.screenSize.height * 0.82);
     self.player1DeductReasonPlayerLabel.visible = NO;
     self.player2DeductReasonPlayerLabel.visible = NO;
     
     // set up player deduct reason labels
     self.player1DeductReasonLabel = [CCLabelBMFont labelWithString:@"Finger Removed!" fntFile:@"nexalight_40px.fnt"];
     self.player2DeductReasonLabel = [CCLabelBMFont labelWithString:@"Finger Removed!" fntFile:@"nexalight_40px.fnt"];
-    self.player1DeductReasonLabel.color = ccc3(221, 49, 135);
-    self.player2DeductReasonLabel.color = ccc3(104, 193, 104);
+    self.player1DeductReasonLabel.color = player1Color;
+    self.player2DeductReasonLabel.color = player2Color;
     self.player1DeductReasonLabel.anchorPoint = ccp(0, 1);
     self.player2DeductReasonLabel.anchorPoint = ccp(0, 1);
     self.player1DeductReasonLabel.position = ccp(self.player1DeductReasonPlayerLabel.position.x + self.player1DeductReasonPlayerLabel.contentSize.width * 1.07, self.player1DeductReasonPlayerLabel.position.y - self.player1DeductReasonPlayerLabel.contentSize.height*0.05);
@@ -506,25 +527,30 @@
     }
 }
 
--(void) startCountdown {
+-(void)startCountdown {
     CCLOG(@"start countdown!");
     self.currentGameState = kGameStateCountdown;
-    self.timerLabel.opacity = 255;
-    self.timerLabel.string = @"3";
+    self.countdownTimerLabel.opacity = 255;
+    self.countdownTimerLabel.string = @"3";
     self.timeToPlay = 3;
-    [self.timerLabel runAction:[CCFadeOut actionWithDuration:1.0f]];
+    [self.countdownTimerLabel runAction:[CCFadeOut actionWithDuration:1.0f]];
     
     [self schedule:@selector(initialCountdown:) interval:1];
 }
 
--(void) endGame {
+-(void)endGame {
     CCLOG(@"end game!");
     self.currentGameState = kGameStateGameOver;
     [self unscheduleAllSelectors];
     [self unscheduleUpdate];
-    [self.timerLabel stopAllActions];
-    self.timerLabel.string = @"GAME OVER";
-    self.timerLabel.opacity = 255;
+    self.gameTimerLabel.string = @"0";
+    [self removeStartingPointForPlayer:1];
+    [self removeStartingPointForPlayer:2];
+    int winner = 1;
+    if (self.player2Score > self.player1Score) {
+        winner = 2;
+    }
+    [self.delegate showGameOverLayerForWinner:winner];
 }
 
 -(void)startGame {
@@ -632,24 +658,21 @@
 }
 
 -(void)initialCountdown:(ccTime)dt {
+    self.timeToPlay--;
+    
+    NSString *timerString;
     if (self.timeToPlay == 0) {
+        timerString = @"GO!";
         [self unschedule:@selector(initialCountdown:)];
         [self startGame];
     } else {
-        self.timeToPlay--;
-        
-        NSString *timerString;
-        if (self.timeToPlay == 0) {
-            timerString = @"GO";
-        } else {
-            timerString = [NSString stringWithFormat:@"%i", self.timeToPlay];
-        }
-        
-        self.timerLabel.string = timerString;
-        
-        // run action
-        [self.timerLabel runAction:[CCSequence actions:[CCShow action], [CCFadeOut actionWithDuration:1.0f], nil]];
+        timerString = [NSString stringWithFormat:@"%i", self.timeToPlay];
     }
+    
+    self.countdownTimerLabel.string = timerString;
+    
+    // run action
+    [self.countdownTimerLabel runAction:[CCSequence actions:[CCShow action], [CCFadeOut actionWithDuration:1.0f], nil]];
 }
 
 -(void)oneSecondTick:(ccTime)dt {
@@ -676,8 +699,8 @@
         [self endGame];
     } else {
         int timerInt = 30 - self.elapsedTime;
-        self.timerLabel.string = [NSString stringWithFormat:@"%i", timerInt];
-        [self.timerLabel runAction:[CCSequence actions:[CCShow action], [CCFadeOut actionWithDuration:1.0f], nil]];
+        self.gameTimerLabel.string = [NSString stringWithFormat:@"%i", timerInt];
+//        [self.gameTimerLabel runAction:[CCSequence actions:[CCShow action], [CCFadeOut actionWithDuration:1.0f], nil]];
     }
 }
 
@@ -755,7 +778,7 @@
             self.player1DeductReasonLabel.visible = YES;
             self.player1DeductReasonLabel.opacity = 255;
             [self deductPointsPlayer1OutOfBoundaries];
-            [self schedule:@selector(deductPointsPlayer1OutOfBoundaries) interval:0.5];
+            [self schedule:@selector(deductPointsPlayer1OutOfBoundaries) interval:1];
         }
     }
     
@@ -780,7 +803,7 @@
             self.player2DeductReasonPlayerLabel.visible = YES;
             self.player2DeductReasonPlayerLabel.opacity = 255;
             [self deductPointsPlayer2OutOfBoundaries];
-            [self schedule:@selector(deductPointsPlayer2OutOfBoundaries) interval:0.5];
+            [self schedule:@selector(deductPointsPlayer2OutOfBoundaries) interval:1];
         }
     }
 }

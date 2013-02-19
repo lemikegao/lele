@@ -96,7 +96,7 @@
     [[GameManager sharedGameManager] setupAudioEngine];
 
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
-    [[GameManager sharedGameManager] runSceneWithID:kSceneTypeGame];
+    [[GameManager sharedGameManager] runSceneWithID:kSceneTypeMainMenu];
 
 	return YES;
 }

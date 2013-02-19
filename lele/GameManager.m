@@ -8,7 +8,10 @@
 
 #import "GameManager.h"
 #import "MainMenuScene.h"
-#import "GameScene.h"
+#import "RainingColorsScene.h"
+#import "SumoFingerScene.h"
+#import "OrbDodgeScene.h"
+#import "TapAndSwitchScene.h"
 
 @interface GameManager()
 
@@ -116,8 +119,17 @@ static GameManager *_sharedGameManager = nil;   // singleton
         case kSceneTypeMainMenu:
             result = @"kSceneTypeMainMenu";
             break;
-        case kSceneTypeGame:
-            result = @"kSceneTypeGame";
+        case kSceneTypeRainingColors:
+            result = @"kSceneTypeRainingColors";
+            break;
+        case kSceneTypeSumoFinger:
+            result = @"kSceneTypeSumoFinger";
+            break;
+        case kSceneTypeOrbDodge:
+            result = @"kSceneTypeOrbDodge";
+            break;
+        case kSceneTypeTapAndSwitch:
+            result = @"kSceneTypeTapAndSwitch";
             break;
         default:
             [NSException raise:NSGenericException format:@"Unexpected SceneType."];
@@ -292,8 +304,17 @@ static GameManager *_sharedGameManager = nil;   // singleton
         case kSceneTypeMainMenu:
             sceneToRun = [MainMenuScene node];
             break;
-        case kSceneTypeGame:
-            sceneToRun = [GameScene node];
+        case kSceneTypeRainingColors:
+            sceneToRun = [RainingColorsScene node];
+            break;
+        case kSceneTypeSumoFinger:
+            sceneToRun = [SumoFingerScene node];
+            break;
+        case kSceneTypeOrbDodge:
+            sceneToRun = [OrbDodgeScene node];
+            break;
+        case kSceneTypeTapAndSwitch:
+            sceneToRun = [TapAndSwitchScene node];
             break;
         default:
             CCLOG(@"Unknown sceneID, cannot run scene");

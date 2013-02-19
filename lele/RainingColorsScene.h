@@ -8,6 +8,8 @@
 
 #import "CCScene.h"
 
-@interface GameScene : CCScene
+@interface RainingColorsScene : CCScene
+
+-(void)showGameOverLayerForWinner:(int)winnerNum;
 
 @end
